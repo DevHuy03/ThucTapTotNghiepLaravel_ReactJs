@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 
 import { useState } from 'react';
 import CustomerService from '../../../services/CustomerService';
@@ -6,7 +7,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     // const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    const navigate = useNavigate();
     const doLogin = (e) => {
         e.preventDefault();
         const customer = new FormData();
@@ -15,6 +16,7 @@ const Login = () => {
         (async () => {
             const result = await CustomerService.login(customer);
             alert(result.message);
+            navigate('/', { replace: true });
         })();
     };
 

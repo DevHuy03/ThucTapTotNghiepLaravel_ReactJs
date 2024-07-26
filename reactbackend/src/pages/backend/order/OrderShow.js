@@ -14,7 +14,7 @@ const OrderShow = () => {
    const [note, setNote] = useState("");
    const [created_at, setCreated_at] = useState("");
    const [status, setStatus] = useState(1);
-
+   const [totalAmount, setTotalAmount] = useState(0); // State for total amount
    const [orderdetails, setOrderdetails] = useState([]);
    useEffect(() => {
       (async () => {
@@ -37,6 +37,11 @@ const OrderShow = () => {
          setStatus(order.status);
       })();
    }, [id]);
+   useEffect(() => {
+      const total = orderdetails.reduce((acc, orderdet) => acc + orderdet.price * orderdet.qty, 0);
+      setTotalAmount(total);
+   }, [orderdetails]);
+
 
    return (
       <div className="content">
@@ -72,7 +77,7 @@ const OrderShow = () => {
             <h3>Chi tiết giỏ hàng</h3>
             <div className="row my-2">
                <div className="col-3">
-                  Tổng tiền: <strong>8888đ</strong>
+                  Tổng tiền: <strong>{totalAmount}đ</strong>
                </div>
                <div className="col-3">
                   Ngày đặt: <strong>{created_at}</strong>
@@ -108,7 +113,7 @@ const OrderShow = () => {
                                  <td>{orderdet.proname}</td>
                                  <td className="text-right">{orderdet.price}</td>
                                  <td className="text-center">{orderdet.qty}</td>
-                                 <td className="text-right">{orderdet.amount}</td>
+                                 <td className="text-right">{(orderdet.price * orderdet.qty)}đ</td>
                               </tr>
                            );
                         })}

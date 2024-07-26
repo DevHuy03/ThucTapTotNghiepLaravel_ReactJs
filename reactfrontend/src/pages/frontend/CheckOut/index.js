@@ -31,7 +31,7 @@ function Checkout({ items }) {
     const calculateCartTotal = () => {
         let total = 0;
         cart.forEach(product => {
-            total += calculateTotal(product.price, product.quantity);
+            total += calculateTotal(product.price, product.qty);
         });
         return total;
     };
